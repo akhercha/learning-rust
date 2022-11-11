@@ -80,6 +80,16 @@ fn main() {
         let _word = first_word(my_string_literal);
     }
 
+    {   // personnal test of iter()...
+        let a = [1, 2, 3, 4, 5];
+
+        println!("[");
+        for (i, &val) in a.iter().enumerate() {
+            println!("\t[{i}]: {val}");
+        }
+        println!("]");
+    }
+
     {
         let a = [1, 2, 3, 4, 5];
 
