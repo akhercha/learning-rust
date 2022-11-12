@@ -5,7 +5,7 @@ use std::cmp::Ordering;
 fn main() {
     let secret_number: u32 = rand::thread_rng().gen_range(1..=100);
     println!("Guess the number!");
-    loop {
+    '_game_loop: loop {
         print!("Please input your guess: ");
         io::Write::flush(&mut io::stdout()).expect("Flush failed.");
 
