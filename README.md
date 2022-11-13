@@ -1,3 +1,12 @@
 # learning-rust
 
-Using https://doc.rust-lang.org/book/ ...
+My rust learning journey.
+
+## Directories
+
+Currently, two big things :
+
+- `book/` the course progress from [rust-lang book](https://doc.rust-lang.org/book/),
+
+- `leetcode/` the exercices made on leet code to master the langage.
+
