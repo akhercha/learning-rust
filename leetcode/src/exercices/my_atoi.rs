@@ -6,10 +6,7 @@ impl Solution {
         let mut positive_flag = 1;
         let mut nbr: i32 = 0;
 
-        if s.len() == 0 {
-            return 0;
-        }
-        if (s[0] == '-') || (s[0] == '+') {
+        if (s.len() > 0) && ((s[0] == '-') || (s[0] == '+')) {
             if s[0] == '-' {
                 positive_flag = -1;
             }
@@ -22,22 +19,21 @@ impl Solution {
             nbr = match nbr.checked_mul(10) {
                 Some(v) => v,
                 None => {
-                    if positive_flag == 1 {
-                        return i32::MAX;
+                    return if positive_flag == 1 {
+                        i32::MAX
                     } else {
-                        return i32::MIN;
-                    }
+                        i32::MIN
+                    };
                 }
             };
-
             nbr = match nbr.checked_add((s[i] as i32) - ('0' as i32)) {
                 Some(v) => v,
                 None => {
-                    if positive_flag == 1 {
-                        return i32::MAX;
+                    return if positive_flag == 1 {
+                        i32::MAX
                     } else {
-                        return i32::MIN;
-                    }
+                        i32::MIN
+                    };
                 }
             };
         }
