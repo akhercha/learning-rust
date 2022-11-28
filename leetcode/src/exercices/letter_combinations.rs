@@ -1,16 +1,20 @@
 use std::collections::HashMap;
-
 pub struct Solution {}
 
 impl Solution {
     fn recursive_finder(
-        answers: Vec<String>,
-        answer: Vec<char>,
-        digits: Vec<char>,
-        numbers_letters_associations: HashMap<u32, &str>
+        answers: &mut Vec<String>,
+        answer: &mut Vec<char>,
+        digits: &mut Vec<char>,
+        numbers_letters_associations: &HashMap<u32, &str>
     ) -> String {
-        if (digits.len() == 0) && (answer.len() > 0) {
-            return answer.into_iter().collect();
+        let mut to_add: String;
+        if digits.len() == 0 {
+            if answer.len() > 0 {
+                return answer.iter().collect();
+            } else {
+                return String::from("");
+            }
         }
 
         let possible_letters: Vec<char> = numbers_letters_associations
@@ -23,13 +27,17 @@ impl Solution {
         for letter in possible_letters {
             answer.push(letter);
             digits.drain(0..1);
-            answers.push(Solution::recursive_finder(answers, answer, digits, numbers_letters_associations));
+            to_add = Solution::recursive_finder(answers, &mut answer.to_vec(), &mut digits.to_vec(), numbers_letters_associations);
+            if to_add.chars().count() > 0 {
+                answers.push(to_add);
+            }
         }
         String::from("")
     }
 
     pub fn letter_combinations(digits: String) -> Vec<String> {
-        let digits: Vec<char> = digits.chars().collect();
+        let mut digits: Vec<char> = digits.chars().collect();
+        let mut answers: Vec<String> = vec![];
         let numbers_letters_associations: HashMap<u32, &str> = [
             (2, "abc"),
             (3, "def"),
@@ -39,11 +47,8 @@ impl Solution {
             (7, "pqrs"),
             (8, "tuv"),
             (9, "wxyz"),
-        ]
-        .into_iter()
-        .collect();
-        let mut answers: Vec<String> = vec![];
-        Solution::recursive_finder(answers, vec![], digits, numbers_letters_associations);
+        ].iter().cloned().collect();
+        Solution::recursive_finder(&mut answers, &mut (vec![]), &mut digits, &numbers_letters_associations);
         answers
     }
 }
